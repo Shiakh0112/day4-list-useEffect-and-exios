@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+</head>
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+  }
+
+  .main-container {
+    width: 60%;
+    display: flex;
+    margin: auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+
+  .input-field {
+    display: flex;
+    gap: 30px;
+    padding: 30px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    background-color: white;
+    border-radius: 12px;
+  }
+
+  .input-field button {
+    width: 120px;
+
+    font-size: 17px;
+    height: 50px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    margin: 38px auto;
+
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+  }
+
+  .input-field button:hover {
+    background-color: #0b63c1;
+    color: white;
+  }
+
+  .inout-box {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .inout-box label {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+  }
+
+  .inout-box input {
+    width: 100%;
+    padding: 12px;
+    font-size: 18px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    outline: none;
+    transition: all 0.3s ease;
+  }
+
+  .inout-box input:focus {
+    border-color: #007bff;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  th,
+  td {
+    padding: 15px;
+    text-align: left;
+  }
+
+  th {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+  }
+
+  td {
+    border-bottom: 1px solid #ddd;
+  }
+
+  td button {
+    padding: 8px 16px;
+    background-color: #a72828;
+
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .Checked {
+    background-color: #14b53a;
+  }
+
+  .Task-completed {
+    background-color: #79c8fa;
+
+  }
+
+  .Checked:hover {
+    background-color: #0d9e2f;
+  }
+
+  td button:hover {
+    background-color: #880b0b;
+  }
+
+  td button.delete-btn {
+    background-color: #dc3545;
+  }
+
+  td button.delete-btn:hover {
+    background-color: #c82333;
+  }
+</style>
+
+<body>
+  <div id="root"></div>
+
+  <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+  <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const Todo = () => {
+      const [todo, setTodo] = React.useState("");
+      const [user, setUser] = React.useState("");
+      const [data, setData] = React.useState([]);
+
+      const HandleUser = (e) => {
+        setUser(e.target.value);
+      };
+
+      const HandleTodo = (e) => {
+        setTodo(e.target.value);
+      };
+
+      const HandleSave = () => {
+        const obj = {
+          todo,
+          user,
+          checked: false, // Add a checked property
+        };
+        setData((prev) => [...prev, obj]);
+        setTodo("");
+        setUser("");
+      };
+
+      const toggleCheck = (index) => {
+        setData((prevData) =>
+          prevData.map((item, i) =>
+            i === index ? { ...item, checked: !item.checked } : item
+          )
+        );
+      };
+
+      return (
+        <>
+          <div className="main-container">
+            <div className="input-field">
+              <div className="inout-box">
+                <label htmlFor="User">User Name</label>
+                <input onChange={HandleUser} value={user} type="text" id="User" />
+              </div>
+              <div className="inout-box">
+                <label htmlFor="Todo">Enter your todo</label>
+                <input onChange={HandleTodo} value={todo} type="text" id="Todo" />
+              </div>
+              <button onClick={HandleSave}>Save Todo</button>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Sr.No</th>
+                  <th>Todo</th>
+                  <th>User Name</th>
+                  <th>Checking</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {data.map((item, index) => (
+                  <tr key={index} className={item.checked ? "Task-completed" : ""}>
+                    <td>{index + 1}</td>
+                    <td>{item.todo}</td>
+                    <td>{item.user}</td>
+                    <td>
+                      <button
+                        className={item.checked ? "Checked" : ""}
+                        onClick={() => toggleCheck(index)}
+                      >
+                        {item.checked ? "unChecked" : "Checked"}
+                      </button>
+                    </td>
+                    <td>
+                      <button
+                        className="delete-btn"
+                        onClick={() => setData(data.filter((_, i) => i !== index))}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </>
+      );
+    };
+
+    const App = () => {
+      return <Todo />;
+    };
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<App />);
+  </script>
+</body>
+
+</html>
