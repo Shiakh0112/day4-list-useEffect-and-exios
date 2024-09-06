@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+
+  .greeting-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 10px;
+    text-align: center;
+    width: 200px;
+  }
+
+  .greeting-card p {
+    font-size: 16px;
+    color: #333;
+  }
+
+  .greeting-card h5 {
+    font-size: 20px;
+    color: #007BFF;
+    margin: 10px 0 0;
+  }
+</style>
+
+<body>
+
+  <div id="root"></div>
+  <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+  <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+
+    const Greeting = ({ greet, name }) => {
+      return <>
+
+        <div class="greeting-card">
+          <p>{greet} </p>
+          <h5>{name} </h5>
+
+        </div>
+
+      </>
+
+    }
+
+    const App = () => {
+      let GratingCards = [
+        { Greeting: "happy birthday", Name: "john don" },
+        { Greeting: "Wish You many many happy returns of the day", Name: "john don" },
+        { Greeting: "god blase you", Name: "john don" },
+      ]
+
+
+      return (
+        <>
+          {GratingCards.map((card, index) => (
+            <div key={index}>
+              <Greeting greet={card.Greeting} name={card.Name} />
+            </div>
+          ))}
+        </>
+      )
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<App />);
+  </script>
+</body>
+
+</html>
