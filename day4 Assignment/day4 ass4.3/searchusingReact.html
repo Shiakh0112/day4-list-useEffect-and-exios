@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profiles</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f5f5f5;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 20px 0;
+      color: #333;
+      font-size: 2.5rem;
+    }
+
+    .main-container {
+      display: flex;
+      width: 100%;
+      margin: auto;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .Users-Container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      width: 90%;
+      margin: auto;
+    }
+
+    .user-container {
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .user-container:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .img-container img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 15px;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    p {
+      margin: 5px 0;
+      font-size: 1rem;
+      color: #666;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    ul li {
+      background-color: #e0f7fa;
+      padding: 5px 10px;
+      border-radius: 5px;
+      margin: 5px 0;
+      color: #00796b;
+      font-size: 0.9rem;
+    }
+
+    .search-input {
+      display: block;
+      width: 50%;
+      padding: 10px;
+      margin: 20px auto;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+
+    .search-input:focus {
+      border-color: #00796b;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="root"></div>
+
+  <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+  <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    const Profile = (props) => {
+      return (
+        <div className="user-container">
+          <div className="img-container">
+            <img src={props.user.image} alt="User Image" />
+          </div>
+          <h2>{props.user.name}</h2>
+          <p>{props.user.description}</p>
+          <p>Age: {props.user.age}</p>
+          <p>Mobile: {props.user.mobile}</p>
+          <h3>Hobbies:</h3>
+          <ul>
+            {props.user.hobbies.map((hobby, index) => (
+              <li key={index}>{hobby}</li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+
+
+    const App = () => {
+      const [searchUser, setSearchUser] = React.useState("")
+
+
+
+
+      const UserProfile = [
+        { id: 1, name: "Ashfaq", description: "I am a student of the University of Masai.", age: 22, mobile: 2353246540, hobbies: ["Reading", "Coding", "Hiking"], image: "https://randomuser.me/api/portraits/men/28.jpg" },
+        { id: 2, name: "John Doe", description: "I am a software engineer.", age: 30, mobile: 2353246541, hobbies: ["Gaming", "Cooking", "Photography"], image: "https://randomuser.me/api/portraits/men/43.jpg" },
+        { id: 3, name: "Jane Smith", description: "I am a doctor.", age: 55, mobile: 2353246542, hobbies: ["Dancing", "Painting", "Traveling"], image: "https://randomuser.me/api/portraits/women/55.jpg" },
+        { id: 4, name: "Mark Williams", description: "I am a lawyer.", age: 45, mobile: 2353246543, hobbies: ["Reading", "Cooking", "Photography"], image: "https://randomuser.me/api/portraits/men/65.jpg" },
+        { id: 5, name: "Sarah Johnson", description: "I am a teacher.", age: 35, mobile: 2353246544, hobbies: ["Gaming", "Painting", "Traveling"], image: "https://randomuser.me/api/portraits/women/35.jpg" },
+        { id: 6, name: "David Brown", description: "I am a business owner.", age: 60, mobile: 2353246545, hobbies: ["Reading", "Cooking", "Photography"], image: "https://randomuser.me/api/portraits/men/70.jpg" },
+        { id: 7, name: "Emily Davis", description: "I am a social worker.", age: 50, mobile: 2353246546, hobbies: ["Gaming", "Painting", "Traveling"], image: "https://randomuser.me/api/portraits/women/50.jpg" },
+        { id: 8, name: "Michael Lee", description: "I am a musician.", age: 40, mobile: 2353246547, hobbies: ["Reading", "Cooking", "Photography"], image: "https://randomuser.me/api/portraits/men/40.jpg" },
+        { id: 9, name: "Sarah Wilson", description: "I am an architect.", age: 65, mobile: 2353246548, hobbies: ["Gaming", "Painting", "Traveling"], image: "https://randomuser.me/api/portraits/women/65.jpg" },
+        { id: 10, name: "Daniel Taylor", description: "I am a lawyer.", age: 30, mobile: 2353246549, hobbies: ["Reading", "Cooking", "Photography"], image: "https://randomuser.me/api/portraits/men/30.jpg" },
+        { id: 11, name: "Jennifer Thompson", description: "I am a teacher.", age: 45, mobile: 2353246550, hobbies: ["Gaming", "Painting", "Traveling"], image: "https://randomuser.me/api/portraits/women/45.jpg" },
+        { id: 12, name: "Patricia Turner", description: "I am a business owner.", age: 50, mobile: 2353246551, hobbies: ["Reading", "Cooking", "Photography"], image: "https://randomuser.me/api/portraits/women/50.jpg" }
+      ]
+
+
+
+      const HandleSearchChange = (e) => {
+        setSearchUser(e.target.value)
+      }
+      const filterUserData = UserProfile.filter((user) =>
+        user.name.toLowerCase().includes(searchUser.toLowerCase())
+      )
+      return (
+        <>
+          <h1>Search your favorite Users</h1>
+          <input className="search-input" type="text" placeholder="search user bu name" onChange={HandleSearchChange} value={searchUser} />
+          <div className="Users-Container">
+            {
+              filterUserData.length > 0 ? filterUserData.map((user) => <Profile key={user.id} user={user} />) : <p>User not fond</p>
+            }
+          </div>
+
+        </>
+      )
+    }
+
+
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<App />);
+  </script>
+</body>
+
+</html>
